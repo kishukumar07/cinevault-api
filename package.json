@@ -1,0 +1,38 @@
+{
+  "name": "cinevault-api",
+  "version": "1.0.0",
+  "description": "A complete RESTful Movie Store API built with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kishukumar07/cinevault-api.git"
+  },
+  "keywords": [
+    "movies",
+    "api",
+    "rest",
+    "express",
+    "nodejs",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "Niket (Kishu)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kishukumar07/cinevault-api/issues"
+  },
+  "homepage": "https://github.com/kishukumar07/cinevault-api#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
