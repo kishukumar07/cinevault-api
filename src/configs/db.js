@@ -1,31 +1,23 @@
-// Import statements need to use 'import ... from' syntax properly
+// src/db/connection.js
+
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-// Load environment variables from .env file
 dotenv.config();
 
-// Get the database URL from environment variables
 const dburl = process.env.DBURL;
 
-// console.log
-// Create the connection
-const connection = mongoose.createConnection(dburl);
+if (!dburl) {
+  throw new Error('DBURL not found in .env file');
+}
 
-// Export the connection
-export default connection;
+// Using mongoose.connect (not createConnection) is recommended for most apps
+mongoose
+  .connect(dburl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default mongoose;
