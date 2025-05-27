@@ -14,10 +14,49 @@ export const createMovie = async (req, res) => {
 //getAllMovies 
 export const getAllMovies = async (req, res) => {
   try {
-    const movies = await movieModel.find();
-    res.status(200).json({ success: true, data: movies });
+    const { q, title, rating, sortBy, page = 1, limit = 5 } = req.query;
+
+    // STEP 1: Build a filter object
+    const filter = {};
+
+    if (title) {
+      filter.title = title; // exact match
+    }
+
+    if (rating) {
+      filter.rating = rating; // exact match
+    }
+
+    if (q) {
+      filter.title = { $regex: q, $options: 'i' }; // case-insensitive search
+    }
+
+    // STEP 2: Start building the query
+    let query = movieModel.find(filter);
+
+    // STEP 3: Apply sorting if sortBy is provided
+    if (sortBy) {
+      query = query.sort(sortBy); // e.g., rating or -rating
+    }
+
+    // STEP 4: Apply pagination
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    query = query.skip(skip).limit(parseInt(limit));
+
+    // STEP 5: Execute the query
+    const movies = await query;
+
+    res.status(200).json({
+      success: true,
+      count: movies.length,
+      data: movies,
+    });
+
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
