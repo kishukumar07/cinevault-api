@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A complete RESTful Movie Store API built with Node.js",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "dev": "nodemon index.js",
